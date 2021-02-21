@@ -4,6 +4,10 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.MonthDay;
+
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class PersonTest {
@@ -51,7 +55,16 @@ public class PersonTest {
 
     @Test
     public void isBirthdayToday_sameMonthDifferentDay_false() {
-        fail();
+        LocalDate today = LocalDate.now();
+        Month todayMonth = today.getMonth();
+        Month tomorrowMonth = today.plusDays(1).getMonth();
+
+        if (tomorrowMonth != todayMonth){
+            this.person.setBirthday(today.minusDays(1));
+        }else {
+            this.person.setBirthday(today.plusDays(1));
+        }
+        Assertions.assertFalse(this.person.isBirthdayToday());
     }
 
     @Test
@@ -62,6 +75,7 @@ public class PersonTest {
     @Test
     public void addToFamily_somePerson_familyHasNewMember() {
         PersonSpy somePerson = new PersonSpy();
+        Assertions.assertEquals(0, somePerson.counter);
         somePerson.addToFamily(this.person);
         Assertions.assertEquals(1, somePerson.counter);
         Assertions.assertTrue(somePerson.isFamily(this.person));
@@ -77,7 +91,7 @@ public class PersonTest {
 
     @Test
     public void isFamily_nonRelativePerson_false() {
-        fail();
+        Assertions.assertFalse(this.person.isFamily(null));
     }
 
     @Test
