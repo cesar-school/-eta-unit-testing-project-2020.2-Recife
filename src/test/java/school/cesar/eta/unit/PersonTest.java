@@ -95,11 +95,9 @@ public class PersonTest {
 
     @Test //DAYSE
     public void isFamily_relativePerson_true() {
-        Person anotherPerson = new Person(){
-            public boolean isFamily(Person person) {
-                return true;
-            }
-        };
+        Person anotherPerson = new Person();
+        anotherPerson.addToFamily(person);
         Assertions.assertTrue(anotherPerson.isFamily(person));
+        Assertions.assertTrue(person.isFamily(anotherPerson));
     }
 }
