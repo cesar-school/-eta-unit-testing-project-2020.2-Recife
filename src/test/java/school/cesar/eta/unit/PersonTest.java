@@ -46,12 +46,16 @@ public class PersonTest {
 
     @Test
     public void getName_noFirstNameLastNameSnow_snow() {
-        fail();
+        person.setLastName("Snow");
+        String actualName = person.getName();
+        Assertions.assertEquals("Snow", actualName);
     }
 
     @Test
     public void getName_noFirstNameNorLastName_throwsException() {
-        fail();
+        person.setLastName(null);
+        person.setName(null);
+        Assertions.assertThrows(RuntimeException.class, () -> new Person().getName());
     }
 
     @Test //DAYSE
