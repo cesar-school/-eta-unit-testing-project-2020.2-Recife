@@ -4,6 +4,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class PersonTest {
@@ -26,7 +29,14 @@ public class PersonTest {
 
     @Test
     public void getName_firstNameJonLastNameSnow_jonSnow() {
-        fail();
+
+        //fail();
+
+        person.setName("Jon");
+        person.setLastName("Snow");
+
+        assertEquals("Jon Snow", person.getName());
+
     }
 
     @Test
@@ -56,7 +66,14 @@ public class PersonTest {
 
     @Test
     public void isBirthdayToday_sameMonthAndDay_true() {
-        fail();
+
+        //fail();
+        LocalDate today = LocalDate.now();
+
+        //person.setBirthday(LocalDate.parse("2020-02-24"));
+        person.setBirthday(today);
+        Assertions.assertTrue(person.isBirthdayToday());
+
     }
 
     @Test
