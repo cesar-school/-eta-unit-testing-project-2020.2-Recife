@@ -5,8 +5,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
-import java.time.Month;
-import java.time.MonthDay;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -18,6 +16,11 @@ public class PersonTest {
         public void addToFamily(Person person) {
             super.addToFamily(person);
             counter ++;
+        }
+
+        @Override
+        public LocalDate getNow() {
+            return LocalDate.parse("2021-02-24");
         }
     }
 
@@ -35,36 +38,37 @@ public class PersonTest {
 
     @Test
     public void getName_firstNameJonNoLastName_jon() {
-        fail();
+        this.person.setName("Jon");
+        Assertions.assertEquals("Jon", person.getName());
+        Assertions.assertNull(person.getLastName());
     }
 
     @Test
     public void getName_noFirstNameLastNameSnow_snow() {
-        fail();
+        this.person.setLastName("Snow");
+        String actualName = person.getName();
+        Assertions.assertEquals("Snow", actualName);
     }
 
     @Test
     public void getName_noFirstNameNorLastName_throwsException() {
-        fail();
+        Assertions.assertThrows(RuntimeException.class, () -> {this.person.getName();});
     }
 
     @Test
     public void isBirthdayToday_differentMonthAndDay_false() {
-        fail();
+        PersonSpy person = new PersonSpy();
+        LocalDate birthday = LocalDate.parse("1992-07-01");
+        person.setBirthday(birthday);
+        Assertions.assertFalse(person.isBirthdayToday());
     }
 
     @Test
     public void isBirthdayToday_sameMonthDifferentDay_false() {
-        LocalDate today = LocalDate.now();
-        Month todayMonth = today.getMonth();
-        Month tomorrowMonth = today.plusDays(1).getMonth();
-
-        if (tomorrowMonth != todayMonth){
-            this.person.setBirthday(today.minusDays(1));
-        }else {
-            this.person.setBirthday(today.plusDays(1));
-        }
-        Assertions.assertFalse(this.person.isBirthdayToday());
+        PersonSpy person = new PersonSpy();
+        LocalDate birthday = LocalDate.parse("1992-02-01");
+        person.setBirthday(birthday);
+        Assertions.assertFalse(person.isBirthdayToday());
     }
 
     @Test
@@ -96,6 +100,9 @@ public class PersonTest {
 
     @Test
     public void isFamily_relativePerson_true() {
-        fail();
+        Person anotherPerson = new Person();
+        anotherPerson.addToFamily(this.person);
+        Assertions.assertTrue(anotherPerson.isFamily(this.person));
+        Assertions.assertTrue(this.person.isFamily(anotherPerson));
     }
 }
