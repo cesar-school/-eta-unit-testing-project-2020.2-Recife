@@ -30,12 +30,10 @@ public class PersonTest {
     @Test
     public void getName_firstNameJonLastNameSnow_jonSnow() {
 
-        //fail();
+        this.person.setName("Jon");
+        this.person.setLastName("Snow");
 
-        person.setName("Jon");
-        person.setLastName("Snow");
-
-        assertEquals("Jon Snow", person.getName());
+        assertEquals("Jon Snow", this.person.getName());
 
     }
 
@@ -67,12 +65,10 @@ public class PersonTest {
     @Test
     public void isBirthdayToday_sameMonthAndDay_true() {
 
-        //fail();
         LocalDate today = LocalDate.now();
 
-        //person.setBirthday(LocalDate.parse("2020-02-24"));
-        person.setBirthday(today);
-        Assertions.assertTrue(person.isBirthdayToday());
+        this.person.setBirthday(today);
+        Assertions.assertTrue(this.person.isBirthdayToday());
 
     }
 
