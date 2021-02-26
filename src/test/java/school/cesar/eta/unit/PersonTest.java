@@ -23,6 +23,11 @@ public class PersonTest {
         public LocalDate getNow() {
             return LocalDate.parse("2021-02-24");
         }
+
+        @Override
+        public LocalDate getNow() {
+            return LocalDate.parse("2021-02-24");
+        }
     }
 
     Person person;
@@ -66,7 +71,10 @@ public class PersonTest {
 
     @Test
     public void isBirthdayToday_sameMonthDifferentDay_false() {
-        fail();
+        PersonSpy person = new PersonSpy();
+        LocalDate birthday = LocalDate.parse("1992-02-01");
+        person.setBirthday(birthday);
+        Assertions.assertFalse(person.isBirthdayToday());
     }
 
     @Test
@@ -77,6 +85,7 @@ public class PersonTest {
     @Test
     public void addToFamily_somePerson_familyHasNewMember() {
         PersonSpy somePerson = new PersonSpy();
+        Assertions.assertEquals(0, somePerson.counter);
         somePerson.addToFamily(this.person);
         Assertions.assertEquals(1, somePerson.counter);
         Assertions.assertTrue(somePerson.isFamily(this.person));
@@ -92,7 +101,7 @@ public class PersonTest {
 
     @Test
     public void isFamily_nonRelativePerson_false() {
-        fail();
+        Assertions.assertFalse(this.person.isFamily(null));
     }
 
     @Test
