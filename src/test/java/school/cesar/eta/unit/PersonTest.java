@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PersonTest {
     class PersonSpy extends Person {
@@ -39,7 +39,9 @@ public class PersonTest {
 
     @Test
     public void getName_firstNameJonLastNameSnow_jonSnow() {
-        fail();
+        this.person.setName("Jon");
+        this.person.setLastName("Snow");
+        assertEquals("Jon Snow", this.person.getName());
     }
 
     @Test
@@ -79,7 +81,9 @@ public class PersonTest {
 
     @Test
     public void isBirthdayToday_sameMonthAndDay_true() {
-        fail();
+        LocalDate today = LocalDate.now();
+        this.person.setBirthday(today);
+        Assertions.assertTrue(this.person.isBirthdayToday());
     }
 
     @Test
