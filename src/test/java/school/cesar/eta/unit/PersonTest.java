@@ -37,9 +37,9 @@ public class PersonTest {
         fail();
     }
 
-    @Test //DAYSE
+    @Test
     public void getName_firstNameJonNoLastName_jon() {
-        person.setName("Jon");
+        this.person.setName("Jon");
         Assertions.assertEquals("Jon", person.getName());
         Assertions.assertNull(person.getLastName());
     }
@@ -56,7 +56,7 @@ public class PersonTest {
         Assertions.assertThrows(RuntimeException.class, () -> {this.person.getName();});
     }
 
-    @Test //DAYSE
+    @Test
     public void isBirthdayToday_differentMonthAndDay_false() {
         PersonSpy person = new PersonSpy();
         LocalDate birthday = LocalDate.parse("1992-07-01");
@@ -95,11 +95,11 @@ public class PersonTest {
         fail();
     }
 
-    @Test //DAYSE
+    @Test
     public void isFamily_relativePerson_true() {
         Person anotherPerson = new Person();
-        anotherPerson.addToFamily(person);
-        Assertions.assertTrue(anotherPerson.isFamily(person));
-        Assertions.assertTrue(person.isFamily(anotherPerson));
+        anotherPerson.addToFamily(this.person);
+        Assertions.assertTrue(anotherPerson.isFamily(this.person));
+        Assertions.assertTrue(this.person.isFamily(anotherPerson));
     }
 }
